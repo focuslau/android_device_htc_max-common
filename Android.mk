@@ -13,9 +13,45 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 #
-ifneq ($(filter m7att m7spr m7tmo m7ul m7vzw t6dwg,$(TARGET_DEVICE)),)
+
+ifneq ($(filter t6dwg,$(TARGET_DEVICE)),)
 
 LOCAL_PATH := $(call my-dir)
 include $(call all-subdir-makefiles,$(LOCAL_PATH))
+
+include $(CLEAR_VARS)
+
+# Create firmware links
+FIRMWARE_MDM_IMAGES := \
+    acdb.mbn \
+    apps.mbn \
+    dsp1.mbn dsp2.mbn \
+    efs1.mbn efs2.mbn efs3.mbn \
+    htccdma.mbn htcnvmfg.mbn htccnv.mbn htcuserd.mbn htcrfnv.mbn htcssmem.mbn \
+    mdm_acdb.img \
+    rpm.mbn \
+    sbl1.mbn \
+    sbl2.mbn
+
+FIRMWARE_MDM_SYMLINKS := $(addprefix $(TARGET_OUT_VENDOR)/firmware/,$(notdir $(FIRMWARE_MDM_IMAGES)))
+$(FIRMWARE_MDM_SYMLINKS): $(LOCAL_INSTALLED_MODULE)
+	@echo "MDM Firmware link: $@"
+	@mkdir -p $(dir $@)
+	@rm -rf $@
+	$(hide) ln -sf /firmware/mdm/image/$(notdir $@) $@
+
+ALL_DEFAULT_INSTALLED_MODULES += $(FIRMWARE_MDM_SYMLINKS)
+
+FIRMWARE_Q6_IMAGES := \
+    q6.b00 q6.b01 q6.b03 q6.b04 q6.b05 q6.b06 q6.mdt
+
+FIRMWARE_Q6_SYMLINKS := $(addprefix $(TARGET_OUT_VENDOR)/firmware/,$(notdir $(FIRMWARE_Q6_IMAGES)))
+$(FIRMWARE_Q6_SYMLINKS): $(LOCAL_INSTALLED_MODULE)
+	@echo "Q6 Firmware link: $@"
+	@mkdir -p $(dir $@)
+	@rm -rf $@
+	$(hide) ln -sf /firmware/q6/$(notdir $@) $@
+
+ALL_DEFAULT_INSTALLED_MODULES += $(FIRMWARE_Q6_SYMLINKS)
 
 endif
