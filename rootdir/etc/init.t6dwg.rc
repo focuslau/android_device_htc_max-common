@@ -26,6 +26,9 @@
 # IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #
 #
+
+import init.qcom.usb.rc
+
 #start camera server as daemon
 service qcamerasvr /system/bin/mm-qcamera-daemon
         class late_start
@@ -43,35 +46,26 @@ on boot
 setprop ro.product.wireless WCN3660
 
 # on emmc mount the partition containing firmware
-on emmc-fs
+on fs
+
+   mkdir /devlog 0700 root root
+   mkdir /ramdump 0700 root root
+
    mkdir /system
-   devwait emmc@system
-   mount ext4 emmc@system /system ro noatime barrier=1
+   mkdir /data 0771 system system
+   mkdir /cache 0770 system cache
+   mkdir /vendor 0771 system system
+   mkdir /vendor/firmware 0771 system system
+   mkdir /firmware/mdm 0771 system system
+   mkdir /firmware/q6 0771 system system
+   mkdir /firmware/wcnss 0771 system system
+   mount_all /fstab.t6dwg
+
    insmod /system/lib/modules/texfat.ko
 
    # Load Mocana FIPS module. Add here since it can make sure system is mounted
    insmod /system/lib/modules/moc_platform_mod.ko
    insmod /system/lib/modules/moc_crypto.ko
-   insmod /system/lib/modules/dm-crypt.ko
-   insmod /system/lib/modules/ecryptfs.ko
-
-   mkdir /data 0771 system system
-   devwait emmc@userdata
-   mount_all /fstab.qcom
-
-   mkdir /cache 0770 system cache
-   devwait emmc@cache
-   mount ext4 emmc@cache /cache nosuid nodev noatime barrier=1
-
-   mkdir /devlog 0700 root root
-   devwait emmc@devlog
-   e2fsck emmc@devlog
-   mount ext4 emmc@devlog /devlog nosuid nodev noatime barrier=1,errors=continue
-
-   mkdir /ramdump 0700 root root
-   devwait emmc@reserve
-   mount vfat emmc@reserve /ramdump rw
-   umount /ramdump
 
    mkdir /data/tombstones 0771 system system
    symlink /data/tombstones /tombstones
@@ -81,15 +75,7 @@ on emmc-fs
    mkdir /tombstones/wcnss 0771 system system
    mkdir /tombstones/dsps 0771 system system
 
-   # For firmwares
-   mkdir /firmware 0771 system system
-   mkdir /vendor 0771 system system
-   mkdir /vendor/firmware 0771 system system
-
    # 8064 has only mdm, use radio partition for it.
-   mkdir /firmware/mdm 0771 system system
-   devwait emmc@radio
-   mount vfat emmc@radio /firmware/mdm ro uid=1000,gid=1000,dmask=227,fmask=337
    #exec /system/bin/sh /init.qcom.firmware_links.sh /firmware/mdm/image /vendor/firmware "*.mbn *.img"
 
    mkdir /data/qcks 0700 system system
@@ -102,17 +88,11 @@ on emmc-fs
    mkdir /data/audio 0775 media audio
    chmod 2775 /data/audio
 
-   mkdir /firmware/q6 0771 system system
-   devwait emmc@adsp
-   mount vfat emmc@adsp /firmware/q6 ro shortname=lower
    exec /system/bin/sh /init.qcom.firmware_links.sh /firmware/q6 /vendor/firmware "q6.*"
 
    # QSEE secure application : keymaster
    exec /system/bin/sh /init.qcom.firmware_links.sh /system/vendor/firmware /vendor/firmware "keymaster.*"
 
-   mkdir /firmware/wcnss 0771 system system
-   devwait emmc@wcnss
-   mount vfat emmc@wcnss /firmware/wcnss ro shortname=lower
    exec /system/bin/sh /init.qcom.firmware_links.sh /firmware/wcnss /vendor/firmware "wcnss.*"
 
    # link widevine drm library path
