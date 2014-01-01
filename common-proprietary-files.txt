@@ -181,6 +181,21 @@ etc/firmware/vidc.b02
 etc/firmware/vidc.b03
 etc/firmware/vidc.mdt
 etc/firmware/vidc_1080p.fw
+etc/firmware/vidcfw.elf
+etc/firmware/a225p5_pm4.fw
+etc/firmware/a225_pfp.fw
+etc/firmware/a225_pm4.fw
+etc/firmware/leia_pfp_470.fw
+etc/firmware/leia_pm4_470.fw
+
+etc/firmware/max11876.bin
+
+# mirlink
+etc/firmware/mirlink.b00
+etc/firmware/mirlink.b01
+etc/firmware/mirlink.b02
+etc/firmware/mirlink.b03
+etc/firmware/mirlink.mdt
 
 # Irda
 bin/cir_fw_update
@@ -203,6 +218,13 @@ etc/firmware/tzapps.b01
 etc/firmware/tzapps.b02
 etc/firmware/tzapps.b03
 etc/firmware/tzapps.mdt
+
+# hdcp firmaware
+etc/firmware/dxhdcp2.b00
+etc/firmware/dxhdcp2.b01
+etc/firmware/dxhdcp2.b02
+etc/firmware/dxhdcp2.b03
+etc/firmware/dxhdcp2.mdt
 
 # Qualcomm extra
 lib/libqc-opt.so

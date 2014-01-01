@@ -38,9 +38,16 @@ PRODUCT_PACKAGES += \
 PRODUCT_COPY_FILES += \
     $(LOCAL_PATH)/configs/init.post_boot.sh:system/etc/init.post_boot.sh
 
+# Wifi && BT
+PRODUCT_COPY_FILES += \
+    $(LOCAL_PATH)/configs/init.qcom.wifi.sh:system/etc/init.qcom.wifi.sh \
+    $(LOCAL_PATH)/configs/init.qcom.fm.sh:system/etc/init.qcom.fm.sh \
+    $(LOCAL_PATH)/configs/init.qcom.coex.sh:system/etc/init.qcom.coex.sh \
+    $(LOCAL_PATH)/configs/init.qcom.bt.sh:system/etc/init.qcom.bt.sh \
+    $(LOCAL_PATH)/configs/init.qcom.bt.bluedroid.sh:system/etc/init.qcom.bt.bluedroid.sh
+
 # Recovery
 PRODUCT_PACKAGES += \
-    lpm.rc \
     charger \
     choice_fn \
     offmode_charging \
@@ -65,8 +72,11 @@ PRODUCT_PACKAGES += \
 
 # Wifi config
 PRODUCT_COPY_FILES += \
-    $(LOCAL_PATH)/configs/p2p_supplicant_overlay.conf:/system/etc/wifi/p2p_supplicant_overlay.conf \
-    $(LOCAL_PATH)/configs/wpa_supplicant_overlay.conf:/system/etc/wifi/wpa_supplicant_overlay.conf \
+    $(LOCAL_PATH)/configs/wifi/apstacon.conf:/system/etc/wifi/apstacon.conf \
+    $(LOCAL_PATH)/configs/wifi/hostapd_default.conf:/system/etc/wifi/hostapd_default.conf \
+    $(LOCAL_PATH)/configs/wifi/p2p_supplicant.conf:/system/etc/wifi/p2p_supplicant.conf \
+    $(LOCAL_PATH)/configs/wifi/WCNSS_qcom_cfg_default.ini:/system/etc/wifi/WCNSS_qcom_cfg_default.ini \
+    $(LOCAL_PATH)/configs/wifi/wpa_supplicant.conf:/system/etc/wifi/wpa_supplicant.conf \
     $(LOCAL_PATH)/configs/calibration:/system/etc/calibration \
     $(LOCAL_PATH)/configs/calibration_EMEA:/system/etc/calibration_EMEA
 
