@@ -80,9 +80,6 @@ on fs
    mkdir /tombstones/wcnss 0771 system system
    mkdir /tombstones/dsps 0771 system system
 
-   # 8064 has only mdm, use radio partition for it.
-   #exec /system/bin/sh /init.qcom.firmware_links.sh /firmware/mdm/image /vendor/firmware "*.mbn *.img"
-
    mkdir /data/qcks 0700 system system
    mount tmpfs tmpfs /data/qcks size=20m,mode=0750,uid=1000,gid=1000
 
@@ -92,13 +89,6 @@ on fs
    # 8064 need to created this folder for CSD-QMI usage
    mkdir /data/audio 0775 media audio
    chmod 2775 /data/audio
-
-   exec /system/bin/sh /init.qcom.firmware_links.sh /firmware/q6 /vendor/firmware "q6.*"
-
-   # QSEE secure application : keymaster
-   exec /system/bin/sh /init.qcom.firmware_links.sh /system/vendor/firmware /vendor/firmware "keymaster.*"
-
-   exec /system/bin/sh /init.qcom.firmware_links.sh /firmware/wcnss /vendor/firmware "wcnss.*"
 
    # link widevine drm library path
    symlink /system/vendor/lib /vendor/lib
