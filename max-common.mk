@@ -27,7 +27,6 @@ TARGET_SCREEN_WIDTH := 1080
 # Ramdisk
 PRODUCT_PACKAGES += \
     fstab.t6dwg \
-    init.qcom.firmware_links.sh \
     init.qcom.usb.rc \
     init.t6dwg.rc \
     init.t6dwg.recovery.rc \
