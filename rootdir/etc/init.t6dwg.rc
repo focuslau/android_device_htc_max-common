@@ -55,6 +55,7 @@ on fs
    mkdir /data 0771 system system
    mkdir /cache 0770 system cache
    mkdir /vendor 0771 system system
+   mkdir /firmware 0771 system system
    mkdir /vendor/firmware 0771 system system
    mkdir /firmware/mdm 0771 system system
    mkdir /firmware/q6 0771 system system
@@ -240,26 +241,22 @@ on init
     mkdir /mnt/shell/emulated 0700 shell shell
     mkdir /storage/emulated 0555 root root
     mkdir /storage/ext_sd 0000 system system
-    mkdir /storage/usb 0000 system system
+    mkdir /mnt/media_rw/usbdisk 0700 media_rw media_rw
+    mkdir /storage/usbdisk 0700 root root
 
     export EXTERNAL_STORAGE /storage/emulated/legacy
     export EMULATED_STORAGE_SOURCE /mnt/shell/emulated
     export EMULATED_STORAGE_TARGET /storage/emulated
+    export SECONDARY_STORAGE /storage/ext_sd
 
     # Support legacy paths
     symlink /storage/emulated/legacy /sdcard
     symlink /storage/emulated/legacy /mnt/sdcard
     symlink /storage/emulated/legacy /storage/sdcard0
     symlink /mnt/shell/emulated/0 /storage/emulated/legacy
-
-    export EXTERNAL_STORAGE2 /storage/ext_sd
-    export EXTERNAL_STORAGE3 /storage/ext_sd
-    export EXTERNAL_STORAGE4 /storage/usb
-    export EXTERNAL_STORAGE5 /storage/usb
-
-    # create mountpoints
-        symlink /storage/ext_sd /sdcard2
-        symlink /storage/usb /mnt/usb
+    symlink /storage/usbdisk /usbdisk
+    symlink /storage/usbdisk /mnt/usbdisk
+    symlink /storage/ext_sd /sdcard2
 
     # NETWORK: NAT setting
     # To prevent out of WINDOW ACK from making
@@ -552,11 +549,14 @@ service qcom-wifi /system/bin/sh /system/etc/init.qcom.wifi.sh
     class core
     oneshot
 
-# create virtual SD card at /mnt/sdcard, based on the /data/media directory
-# daemon will drop to user/group system/media_rw after initializing
-# underlying files in /data/media will be created with user and group media_rw (1023)
-service sdcard /system/bin/sdcard /data/media /mnt/shell/emulated 1023 1023
+# virtual sdcard daemon running as media_rw (1023)
+service sdcard /system/bin/sdcard -u 1023 -g 1023 -l /data/media /mnt/shell/emulated
     class late_start
+
+# usb-otg storage
+service fuse_usbdisk /system/bin/sdcard -u 1023 -g 1023 -w 1023 -d /mnt/media_rw/usbdisk /storage/usbdisk
+    class late_start
+    disabled
 
 # wifi ++
 service p2p_supplicant /system/bin/logwrapper /system/bin/wpa_supplicant \
@@ -690,12 +690,6 @@ service hdmid /system/bin/hdmid
 on property:ro.hdmi.enable=true
     start hdmid
 
-service tpd /sbin/tpd
-    class core
-    cgroup bg
-    user root
-
-
 # for USB internet sharing
 service udhcpd /system/bin/udhcpd
 	disabled
@@ -764,13 +758,6 @@ service dhcpcd_bt-pan /system/bin/dhcpcd -ABKL
     oneshot
 #--SSD_BT
 
-service bugreport /system/bin/dumpstate -d -p -B \
- -o /data/data/com.android.shell/files/bugreports/bugreport
-    disabled
-    cgroup bg
-    oneshot
-    keycodes 114 115
-
 service hdf /sbin/hdf
     class core
 	oneshot
@@ -790,20 +777,6 @@ service bootcomplete /system/bin/bootcomplete
     group root
     disabled
     oneshot
-
-service htc_ebdlogd /system/bin/htc_ebdlogd -s -k -P 7
-    user root
-    cgroup bg
-    disabled
-    oneshot
-    ioprio idle 0
-
-service htc_ebdlogd_rel /system/bin/htc_ebdlogd -s -k
-    user root
-    cgroup bg
-    disabled
-    oneshot
-    ioprio idle 0
 
 service qseecomd /system/bin/qseecomd
     class main
