@@ -61,6 +61,10 @@ on fs
    mkdir /firmware/wcnss 0771 system system
    mount_all /fstab.t6dwg
 
+   # wlan
+   symlink /system/lib/modules/prima/prima_wlan.ko /system/lib/modules/wlan.ko
+   symlink /system/lib/modules/prima/cfg80211.ko /system/lib/modules/cfg80211.ko
+
    insmod /system/lib/modules/texfat.ko
 
    # Load Mocana FIPS module. Add here since it can make sure system is mounted
@@ -387,6 +391,9 @@ on boot
     chown system system /sys/devices/virtual/htc_accessory/tty/flag
     chown system system /sys/class/leds/indicator/ModeRGB
 # HTC SSD Peripheral UI - END
+
+# permissions for Torch
+    chmod 0666 /sys/class/leds/flashlight/brightness
 
 # permissions for NFC
     chmod 0600 /dev/pn544
