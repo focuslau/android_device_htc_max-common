@@ -74,9 +74,7 @@ PRODUCT_COPY_FILES += \
     $(LOCAL_PATH)/configs/wifi/hostapd_default.conf:/system/etc/wifi/hostapd_default.conf \
     $(LOCAL_PATH)/configs/wifi/p2p_supplicant.conf:/system/etc/wifi/p2p_supplicant.conf \
     $(LOCAL_PATH)/configs/wifi/WCNSS_qcom_cfg_default.ini:/system/etc/wifi/WCNSS_qcom_cfg_default.ini \
-    $(LOCAL_PATH)/configs/wifi/wpa_supplicant.conf:/system/etc/wifi/wpa_supplicant.conf \
-    $(LOCAL_PATH)/configs/calibration:/system/etc/calibration \
-    $(LOCAL_PATH)/configs/calibration_EMEA:/system/etc/calibration_EMEA
+    $(LOCAL_PATH)/configs/wifi/wpa_supplicant.conf:/system/etc/wifi/wpa_supplicant.conf
 
 # Audio config
 PRODUCT_COPY_FILES += \
@@ -95,13 +93,7 @@ PRODUCT_COPY_FILES += \
 PRODUCT_COPY_FILES += \
     $(LOCAL_PATH)/configs/AudioBTID.csv:system/etc/AudioBTID.csv \
     $(LOCAL_PATH)/configs/AudioBTIDnew.csv:system/etc/AudioBTIDnew.csvs \
-    $(LOCAL_PATH)/dsp/snd_soc_msm/snd_soc_msm:system/etc/snd_soc_msm/snd_soc_msm \
-    $(LOCAL_PATH)/dsp/snd_soc_msm/snd_soc_msm_2x:system/etc/snd_soc_msm/snd_soc_msm_2x \
-    $(LOCAL_PATH)/dsp/snd_soc_msm/snd_soc_msm_2x_Fusion3:system/etc/snd_soc_msm/snd_soc_msm_2x_Fusion3 \
-    $(LOCAL_PATH)/dsp/snd_soc_msm/snd_soc_msm_2x_Fusion3_DMIC:system/etc/snd_soc_msm/snd_soc_msm_2x_Fusion3_DMIC \
-    $(LOCAL_PATH)/dsp/snd_soc_msm/snd_soc_msm_2x_Fusion3_DMIC_S:system/etc/snd_soc_msm/snd_soc_msm_2x_Fusion3_DMIC_S \
-    $(LOCAL_PATH)/dsp/snd_soc_msm/snd_soc_msm_2x_Fusion3_DMIC_SK:system/etc/snd_soc_msm/snd_soc_msm_2x_Fusion3_DMIC_SK \
-    $(LOCAL_PATH)/dsp/snd_soc_msm/snd_soc_msm_Sitar:system/etc/snd_soc_msm/snd_soc_msm_Sitar
+    $(LOCAL_PATH)/dsp/snd_soc_msm/snd_soc_msm_2x_Fusion3_DMIC_SK:system/etc/snd_soc_msm/snd_soc_msm_2x_Fusion3_DMIC_SK 
 
 # Media
 PRODUCT_COPY_FILES += \
@@ -134,16 +126,6 @@ PRODUCT_PACKAGES += \
 PRODUCT_COPY_FILES += \
     $(LOCAL_PATH)/gps/gps.conf:system/etc/gps.conf
 
-# NFC
-PRODUCT_PACKAGES += \
-    nfc.msm8960 \
-    libnfc \
-    libnfc_ndef \
-    libnfc_jni \
-    Nfc \
-    Tag \
-    com.android.nfc_extras
-
 # Misc Packages
 PRODUCT_PACKAGES += \
     Torch
@@ -155,32 +137,16 @@ PRODUCT_COPY_FILES += \
     frameworks/native/data/etc/android.hardware.sensor.compass.xml:system/etc/permissions/android.hardware.sensor.compass.xml \
     frameworks/native/data/etc/android.hardware.bluetooth_le.xml:system/etc/permissions/android.hardware.bluetooth_le.xml \
     frameworks/native/data/etc/android.hardware.consumerir.xml:system/etc/permissions/android.hardware.consumerir.xml \
-    frameworks/native/data/etc/android.hardware.nfc.xml:system/etc/permissions/android.hardware.nfc.xml \
-    frameworks/native/data/etc/android.hardware.nfc.hce.xml:system/etc/permissions/android.hardware.nfc.hce.xml \
-    frameworks/base/nfc-extras/com.android.nfc_extras.xml:system/etc/permissions/com.android.nfc_extras.xml \
     frameworks/native/data/etc/com.nxp.mifare.xml:system/etc/permissions/com.nxp.mifare.xml \
     frameworks/native/data/etc/android.hardware.touchscreen.multitouch.distinct.xml:system/etc/permissions/android.hardware.touchscreen.multitouch.distinct.xml \
     frameworks/native/data/etc/android.hardware.wifi.direct.xml:system/etc/permissions/android.hardware.wifi.direct.xml
 
-# NFCEE access control
-ifeq ($(TARGET_BUILD_VARIANT),user)
-    NFCEE_ACCESS_PATH := device/htc/max-common/configs/nfcee_access.xml
-else
-    NFCEE_ACCESS_PATH := device/htc/max-common/configs/nfcee_access_debug.xml
-endif
-PRODUCT_COPY_FILES += \
-    $(NFCEE_ACCESS_PATH):system/etc/nfcee_access.xml
-
 PRODUCT_DEFAULT_PROPERTY_OVERRIDES += \
     persist.sys.usb.config=mtp \
-    persist.service.adb.enable=1 \
+    persist.service.adb.enable=1
 
 # Common build properties
 PRODUCT_PROPERTY_OVERRIDES += \
-    debug.nfc.fw_download=true \
-    debug.nfc.fw_boot_download=false \
-    debug.nfc.se=true \
-    ro.nfc.port=I2C \
     ro.sf.lcd_density=480 \
     persist.timed.enable=true \
     persist.gps.qmienabled=true \
