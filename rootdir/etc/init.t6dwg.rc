@@ -226,6 +226,53 @@ on init
     chown root root /devlog
     chmod 0700 /devlog
 
+on init
+
+# HTC SSD Peripheral UI - BEGIN
+    # LSM330 Gyro
+    chown system system /sys/devices/virtual/ST_gyr/gyr/enable_device
+    chown system system /sys/devices/virtual/ST_gyr/gyr/pollrate_ms
+    chown system system /sys/devices/virtual/ST_gyr/gyr/fifo_mode
+    chown system system /sys/devices/virtual/ST_gyr/gyr/range
+    chown system system /sys/devices/virtual/ST_gyr/gyr/fifo_samples
+    chown system system /sys/devices/virtual/ST_gyr/gyr/enable_polling
+    chown system system /sys/devices/virtual/ST_gyr/gyr/cali_data
+    chown system system /sys/devices/virtual/ST_gyr/gyr/debug_event_report
+
+    chmod 0660 /sys/devices/virtual/ST_gyr/gyr/enable_device
+    chmod 0660 /sys/devices/virtual/ST_gyr/gyr/pollrate_ms
+    chmod 0660 /sys/devices/virtual/ST_gyr/gyr/fifo_mode
+    chmod 0660 /sys/devices/virtual/ST_gyr/gyr/range
+    chmod 0660 /sys/devices/virtual/ST_gyr/gyr/fifo_samples
+    chmod 0660 /sys/devices/virtual/ST_gyr/gyr/enable_polling
+    chmod 0660 /sys/devices/virtual/ST_gyr/gyr/cali_data
+    chmod 0660 /sys/devices/virtual/ST_gyr/gyr/debug_event_report
+
+
+    # LSM330 Accelerometer
+    chown system system /sys/devices/virtual/ST_acc/acc/get_raw_data
+    chown system system /sys/devices/virtual/ST_acc/acc/enable_state_prog
+    chown system system /sys/devices/virtual/ST_acc/acc/pollrate_ms
+    chown system system /sys/devices/virtual/ST_acc/acc/enable_polling
+    chown system system /sys/devices/virtual/ST_acc/acc/enable_device
+    chown system system /sys/devices/virtual/ST_acc/acc/double_tap
+    chown system system /sys/devices/virtual/ST_acc/acc/chip_layout
+    chown system system /sys/devices/virtual/ST_acc/acc/range
+    chown system system /sys/devices/virtual/ST_acc/acc/set_k_value
+    chown system system /sys/devices/virtual/ST_acc/acc/calibration_version
+
+    chmod 0660 /sys/devices/virtual/ST_acc/acc/get_raw_data
+    chmod 0660 /sys/devices/virtual/ST_acc/acc/enable_state_prog
+    chmod 0660 /sys/devices/virtual/ST_acc/acc/pollrate_ms
+    chmod 0660 /sys/devices/virtual/ST_acc/acc/enable_polling
+    chmod 0660 /sys/devices/virtual/ST_acc/acc/enable_device
+    chmod 0660 /sys/devices/virtual/ST_acc/acc/double_tap
+    chmod 0660 /sys/devices/virtual/ST_acc/acc/chip_layout
+    chmod 0660 /sys/devices/virtual/ST_acc/acc/range
+    chmod 0660 /sys/devices/virtual/ST_acc/acc/set_k_value
+    chmod 0660 /sys/devices/virtual/ST_acc/acc/calibration_version
+# HTC SSD Peripheral UI - END
+
     # setup the global environment
     # See storage config details at http://source.android.com/tech/storage/
     mkdir /mnt/shell/emulated 0700 shell shell
@@ -264,6 +311,7 @@ on post-fs-data
     mkdir /data/radio 0770 radio radio
     chmod 2770 /data/radio
 #+SSD_RIL: from Qualcomm socket path
+    mkdir /dev/socket/qmux_radio 0770 radio radio
     mkdir /dev/socket/qmux_audio 0770 audio audio
     mkdir /dev/socket/qmux_bluetooth 0770 bluetooth bluetooth
     mkdir /data/misc/mdmhelperdata 0770 root root
