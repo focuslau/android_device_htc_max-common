@@ -12,5 +12,5 @@
 /dev/block/mmcblk0p16	/firmware/q6	  vfat	ro,fmask=0000,dmask=0000,shortname=lower		wait
 /dev/block/mmcblk0p18 /firmware/wcnss	vfat	ro,fmask=0000,dmask=0000,shortname=lower		wait
 
-/devices/platform/msm_sdcc.3/mmc_host   /storage/ext_sd     auto  default   voldmanaged=sdcard:auto
-/devices/platform/msm_hsusb_host        /storage/usbdisk        auto  default   voldmanaged=usbdisk:auto
+/devices/platform/msm_sdcc.3/mmc_host   auto    auto  default   voldmanaged=sdcard1:auto
+/devices/platform/msm_hsusb_host        auto    auto  default   voldmanaged=usbdisk:auto
