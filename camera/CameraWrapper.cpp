@@ -56,8 +56,8 @@ camera_module_t HAL_MODULE_INFO_SYM = {
          version_major: 1,
          version_minor: 0,
          id: CAMERA_HARDWARE_MODULE_ID,
-         name: "M7 Camera Wrapper",
-         author: "The CyanogenMod Project",
+         name: "Max Camera Wrapper",
+         author: "focus.lau@gmail.com",
          methods: &camera_module_methods,
          dso: NULL, /* remove compilation warnings */
          reserved: {0}, /* remove compilation warnings */
@@ -503,6 +503,13 @@ static int camera_send_command(struct camera_device *device,
 {
     ALOGV("%s->%08X->%08X", __FUNCTION__, (uintptr_t)device,
             (uintptr_t)(((wrapper_camera_device_t*)device)->vendor));
+
+    if(cmd == CAMERA_CMD_START_FACE_DETECTION || cmd == CAMERA_CMD_STOP_FACE_DETECTION) {
+        /* this command causes seg fault and camera crashes as this send_command calls
+         * for proprietary face detection models not supported in our framework */
+        ALOGE("%s FACE_DETECTION -- %d, skip face detection", __FUNCTION__, cmd);
+        return android::NO_ERROR;
+    }
 
     if (!device)
         return -EINVAL;
