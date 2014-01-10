@@ -29,6 +29,7 @@ PRODUCT_PACKAGES += \
     fstab.t6dwg \
     init.qcom.usb.rc \
     init.t6dwg.rc \
+    init.power.rc \
     init.t6dwg.recovery.rc \
     ueventd.t6dwg.rc
 

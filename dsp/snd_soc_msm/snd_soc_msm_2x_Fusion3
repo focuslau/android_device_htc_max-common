@@ -1,6 +1,7 @@
 # Master file for snd_soc_msm_2x Funsion3 sound card proj=DMIC_SK_T6TL_DUG_DWG DATE= 20130816
 # Lists all use case verbs
 SectionUseCase."HiFi" { 
+Comment "Music playback use case"
 SectionVerb
 	Name "HiFi"
 

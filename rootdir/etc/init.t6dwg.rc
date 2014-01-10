@@ -28,6 +28,7 @@
 #
 
 import init.qcom.usb.rc
+import init.power.rc
 
 #start camera server as daemon
 service qcamerasvr /system/bin/mm-qcamera-daemon
