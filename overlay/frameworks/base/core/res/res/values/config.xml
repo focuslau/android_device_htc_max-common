@@ -31,16 +31,16 @@
          does not require auto-restore. -->
     <!-- the 6th element indicates boot-time dependency-met value. -->
     <string-array translatable="false" name="networkAttributes">
-         <item>"wifi,1,1,1,-1,true"</item>
-         <item>"mobile,0,0,0,-1,true"</item>
-         <item>"mobile_mms,2,0,2,60000,true"</item>
-         <item>"mobile_supl,3,0,2,60000,true"</item>
-         <item>"mobile_dun,4,0,2,60000,true"</item>
-         <item>"mobile_hipri,5,0,3,60000,true"</item>
-         <item>"mobile_fota,10,0,2,60000,true"</item>
-         <item>"mobile_ims,11,0,2,60000,true"</item>
-         <item>"mobile_cbs,12,0,2,60000,true"</item>
-         <item>"bluetooth,7,7,2,-1,true"</item>
+         <item>mobile,0,0,0,-1,true,wan</item>
+         <item>mobile_mms,2,0,7,420000,true,apn</item>
+         <item>mobile_supl,3,0,7,0,true,apn</item>
+         <item>mobile_dun,4,0,1,60000,true,apn</item>
+         <item>mobile_hipri,5,0,7,60000,true,apn</item>
+         <item>mobile_fota,10,0,7,-1,true,apn</item>
+         <item>usbnet,18,18,5,-1,true,wan</item>
+         <item>bluetooth,7,7,5,-1,true,wan</item>
+         <item>wifi,1,1,4,-1,true,wan</item>
+         <item>wifi_p2p,13,1,6,-1,true,lan</item>
    </string-array>
 
     <!-- This string array should be overridden by the device to present a list of network
@@ -56,7 +56,7 @@
          USB interfaces.  If the device doesn't want to support tething over USB this should
          be empty.  An example would be "usb.*" -->
     <string-array translatable="false" name="config_tether_usb_regexs">
-        <item>"rndis\\d"</item>
+        <item>"usb0"</item>
     </string-array>
 
     <!-- List of regexpressions describing the interface (if any) that represent tetherable
@@ -260,7 +260,7 @@
     <bool name="config_enableWifiDisplay">true</bool>
 
     <!-- Flag indicating if the speed up audio on mt call code should be executed -->
-    <bool name="config_speed_up_audio_on_mt_calls">false</bool>
+    <bool name="config_speed_up_audio_on_mt_calls">true</bool>
 
     <!-- Device supports LED flashlight -->
     <bool name="config_enableTorch">true</bool>
