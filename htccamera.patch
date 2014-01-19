@@ -1,0 +1,32 @@
+commit b180cbaa1589f7ae437f636e2bfdc8e66ade1052
+Author: focuslau <focus.lau@gmail.com>
+Date:   Thu Jan 9 19:35:04 2014 +0800
+
+    htc one max camera parameter
+    
+    Change-Id: I9ebc7bf1b3d3ea1c4fbc3ffa6ded2c2a8ba0b6a0
+
+diff --git a/camera/CameraParameters.cpp b/camera/CameraParameters.cpp
+index 75ec676..3be854e 100644
+--- a/camera/CameraParameters.cpp
++++ b/camera/CameraParameters.cpp
+@@ -203,6 +203,7 @@ const char CameraParameters::CAPTURE_MODE_CONTI_BURST_ONE_SHOT[] = "contiburst-o
+ const char CameraParameters::CAPTURE_MODE_HDR[] = "hdr";
+ const char CameraParameters::CAPTURE_MODE_PANORAMA[] = "panorama";
+ const char CameraParameters::CAPTURE_MODE_ZOE[] = "zoe";
++const char CameraParameters::CAPTURE_MODE_EIS[] = "eis";
+ const char CameraParameters::KEY_CONTI_BURST_STATE[] = "contiburst-state";
+ const char CameraParameters::KEY_SUPPORTED_CAPTURE_MODES[] = "capture-mode-values";
+ const char CameraParameters::KEY_MIN_CONTRAST[] = "contrast-min";
+diff --git a/include/camera/CameraParameters.h b/include/camera/CameraParameters.h
+index 2758989..e9924d4 100644
+--- a/include/camera/CameraParameters.h
++++ b/include/camera/CameraParameters.h
+@@ -672,6 +672,7 @@ public:
+     static const char CAPTURE_MODE_HDR[];
+     static const char CAPTURE_MODE_PANORAMA[];
+     static const char CAPTURE_MODE_ZOE[];
++    static const char CAPTURE_MODE_EIS[];
+     static const char KEY_CONTI_BURST_STATE[];
+     static const char KEY_SUPPORTED_CAPTURE_MODES[];
+     static const char KEY_MIN_CONTRAST[];
