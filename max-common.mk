@@ -121,8 +121,8 @@ PRODUCT_PACKAGES += \
     camera.msm8960
 
 # GPS
-PRODUCT_PACKAGES += \
-    gps.msm8960
+# PRODUCT_PACKAGES += \
+#    gps.msm8960
 
 PRODUCT_COPY_FILES += \
     $(LOCAL_PATH)/gps/gps.conf:system/etc/gps.conf
@@ -150,6 +150,7 @@ PRODUCT_DEFAULT_PROPERTY_OVERRIDES += \
 PRODUCT_PROPERTY_OVERRIDES += \
     ro.sf.lcd_density=480 \
     persist.timed.enable=true \
+    ro.ril.def.agps.mode=2 \
     persist.gps.qmienabled=true \
     ro.baseband.arch=mdm \
     ro.cam.hw.version=m7 \
