@@ -326,6 +326,8 @@ on post-fs-data
     mkdir /data/secure 0755 system system
     mkdir /data/secure/data 0755 system system
     mount tmpfs tmpfs /data/secure/data mode=0755,gid=1000
+    
+    setprop qcom.audio.init complete
 
 	# HTC add: double check the perms of /data/data for already existed case
 	chown system system /data/data
