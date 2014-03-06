@@ -8,6 +8,4 @@
     <!-- Out of 100, the percent to shrink the workspace during spring loaded mode. -->
     <integer name="config_workspaceSpringLoadShrinkPercentage">90</integer>
 
-    <!-- Camera distance for the overscroll effect -->
-    <integer name="config_cameraDistance">18000</integer>
 </resources>

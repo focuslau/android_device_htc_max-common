@@ -68,6 +68,17 @@
 /dev/block/mmcblk0p22     0660   system     system
 /dev/block/mmcblk0p23     0660   system     system
 /dev/block/mmcblk0p30     0660   system     system
+/dev/tpa6185              0660   system     audio
+/dev/rt5501               0660   system     audio
+/dev/aud_hs_amp           0660   system     audio
+/dev/tfa9887              0660   system     audio
+/dev/tfa9887l             0660   system     audio
+
+/dev/msm_rotator          0660   system     graphics
+/dev/graphics/*           0660   root       graphics
+/dev/graphics/fb2         0660   system     graphics
+/dev/diag                 0660   system     radio
+
 /dev/video*	          0660   system     camera 
 #regular apps need to be able to open ion
 /dev/ion                  0664   system     system
@@ -109,16 +120,23 @@
 /dev/felica_int_poll   0400   felicaclient   felicaclient
 /dev/felica_uid        0222   felicaclient   felicaclient
 
+#rfcomm device for Bluetooth DUN
+/dev/rfcomm0              0660   bluetooth   bluetooth
+
 # cir
-/dev/ttyHSL2              0660   irda       irda
+/dev/ttyHSL2              0660   system       system
+
+# irda
+/dev/ttyHSL2              0660   system      system
 
 # HtcCarGPS
 /dev/ttyHSUSB1                                 0600    system  system
+
+#GPS: QCA 1530
+/dev/ttyMSM2              0600   gps       gps
 
 # for autobot car pc
 /dev/ttyHSUSB3                                 0660    autobot_access autobot_access
 
 # MirrorLink
 /sys/devices/virtual/android_usb/android0/f_projector2    client_context_info    0644  system system
-
-/dev/qseecom              0666   system     drmrpc

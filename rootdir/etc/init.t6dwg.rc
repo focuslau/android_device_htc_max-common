@@ -27,8 +27,8 @@
 #
 #
 
-import init.qcom.usb.rc
 import init.power.rc
+import init.qcom.usb.rc
 
 #start camera server as daemon
 service qcamerasvr /system/bin/mm-qcamera-daemon
@@ -218,9 +218,9 @@ on init
     chmod 0660 /sys/class/ST_acc/acc/enable_cir_interrupt
 
     # htc_cir
-    chown irda irda /sys/class/htc_cir/cir/reset_cir
+    chown system system /sys/class/htc_cir/cir/reset_cir
     chmod 0660 /sys/class/htc_cir/cir/reset_cir
-    chown irda irda /sys/class/htc_cir/cir/enable_cir
+    chown system system /sys/class/htc_cir/cir/enable_cir
     chmod 0660 /sys/class/htc_cir/cir/enable_cir
 
     # htc_ebdlog
@@ -528,7 +528,7 @@ on boot
 # an ack packet comes out of order
     write /proc/sys/net/netfilter/nf_conntrack_tcp_be_liberal 1
     
-service zchgd_offmode /system/bin/zchgd -pseudooffmode
+service zchgd_offmode /system/bin/zchgd -pseudooffmode -autostop
     user root
     group root graphics
     disabled

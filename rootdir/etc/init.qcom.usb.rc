@@ -818,7 +818,19 @@ on property:sys.usb.config=rndis,mtp,acm
     write /sys/devices/platform/android_usb/usb_function_switch 1157
     setprop sys.usb.state ${sys.usb.config}
 
+## ------------
+# Same as sys.usb.config=mtp,adb,mass_storage to turn off ACM
+on property:sys.usb.config=mtp,adb,acm
+    start adbd
+    write /sys/devices/platform/android_usb/usb_function_switch 131
+    setprop sys.usb.state ${sys.usb.config}
 
+# Same as sys.usb.config=mtp,mass_storage to turn off ACM
+on property:sys.usb.config=mtp,acm
+    write /sys/devices/platform/android_usb/usb_function_switch 129
+    setprop sys.usb.state ${sys.usb.config}
+
+## ============
 #used for ##3424
 on property:persist.sys.usb.diag.config=*
     setprop sys.usb.diag.config ${persist.sys.usb.diag.config}
@@ -834,19 +846,19 @@ on property:sys.usb.diag.config=diagoff
 
 #`` HTC_IPT
 # for USB IPT
-service udhcpd0 /system/bin/logwrapper /system/bin/udhcpd
+service udhcpd /system/bin/logwrapper /system/bin/udhcpd
 	disabled
 	oneshot
 
-service netsharing0_on /system/bin/netsharing net on
+service netsharing_on /system/bin/netsharing net on
 	disabled
 	oneshot
 
-service netsharing0_off /system/bin/netsharing net off
+service netsharing_off /system/bin/netsharing net off
 	disabled
 	oneshot
 
-service netsharing0_pass /system/bin/netsharing net_pass on
+service netsharing_pass /system/bin/netsharing net_pass on
 	disabled
 	oneshot
 
