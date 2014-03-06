@@ -30,11 +30,18 @@
 TARGET_SPECIFIC_HEADER_PATH := device/htc/max-common/include
 
 # Audio
-TARGET_USES_QCOM_MM_AUDIO               := true
-BOARD_AUDIO_EXPECTS_MIN_BUFFERSIZE      := true
-BOARD_USES_SEPERATED_VOICE_SPEAKER      := true
+BOARD_HAVE_HTC_CSDCLIENT := true
+BOARD_USES_FLUENCE_INCALL := true  # use DMIC in call only
+TARGET_USES_QCOM_MM_AUDIO := true
+BOARD_USES_SEPERATED_AUDIO_INPUT := true # use distinct voice recognition use case
+BOARD_AUDIO_EXPECTS_MIN_BUFFERSIZE := true
+BOARD_USES_SEPERATED_VOICE_SPEAKER := true # use distinct voice speaker use case
 BOARD_AUDIO_CAF_LEGACY_INPUT_BUFFERSIZE := true
-BOARD_HAVE_AUDIENCE_ES310               := true
+#BOARD_HAVE_AUDIENCE_ES310 := true
+
+# FM
+COMMON_GLOBAL_CFLAGS += -DQCOM_FM_ENABLED
+QCOM_FM_ENABLED := true
 
 # Bluetooth
 BOARD_HAVE_BLUETOOTH_BCM := true

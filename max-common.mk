@@ -112,10 +112,6 @@ PRODUCT_COPY_FILES += \
     $(LOCAL_PATH)/idc/projector_input.idc:system/usr/idc/projector_input.idc \
     $(LOCAL_PATH)/idc/max1187x_touchscreen_0.idc:system/usr/idc/max1187x_touchscreen_0.idc
 
-# Audio
-PRODUCT_PACKAGES += \
-    libaudioamp
-
 # Camera
 PRODUCT_PACKAGES += \
     camera.msm8960
