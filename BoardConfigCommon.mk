@@ -30,12 +30,11 @@
 TARGET_SPECIFIC_HEADER_PATH := device/htc/max-common/include
 
 # Audio
-BOARD_USES_FLUENCE_INCALL := true  # use DMIC in call only
-BOARD_USES_SEPERATED_AUDIO_INPUT := true  # use distinct voice recognition use case
-BOARD_USES_SEPERATED_VOICE_SPEAKER := true  # use distinct voice speaker use case
-BOARD_USES_SEPERATED_VOIP := true  # use distinct VOIP use cases
-BOARD_AUDIO_AMPLIFIER := device/htc/max-common/libaudioamp
-BOARD_HAVE_HTC_CSDCLIENT := true
+TARGET_USES_QCOM_MM_AUDIO               := true
+BOARD_AUDIO_EXPECTS_MIN_BUFFERSIZE      := true
+BOARD_USES_SEPERATED_VOICE_SPEAKER      := true
+BOARD_AUDIO_CAF_LEGACY_INPUT_BUFFERSIZE := true
+BOARD_HAVE_AUDIENCE_ES310               := true
 
 # Bluetooth
 BOARD_HAVE_BLUETOOTH_BCM := true
@@ -63,9 +62,9 @@ BOARD_HAS_QCOM_WLAN := true
 BOARD_WLAN_DEVICE := qcwcn
 WPA_SUPPLICANT_VERSION := VER_0_8_X
 BOARD_WPA_SUPPLICANT_DRIVER := NL80211
-BOARD_WPA_SUPPLICANT_PRIVATE_LIB := lib_driver_cmd_qcwcn
+BOARD_WPA_SUPPLICANT_PRIVATE_LIB := lib_driver_cmd_${BOARD_WLAN_DEVICE}
 BOARD_HOSTAPD_DRIVER := NL80211
-BOARD_HOSTAPD_PRIVATE_LIB := lib_driver_cmd_qcwcn
+BOARD_HOSTAPD_PRIVATE_LIB := lib_driver_cmd_${BOARD_WLAN_DEVICE}
 WIFI_DRIVER_FW_PATH_STA := "sta"
 WIFI_DRIVER_FW_PATH_AP  := "ap"
 WIFI_DRIVER_MODULE_PATH := "/system/lib/modules/wlan.ko"
